@@ -1,0 +1,40 @@
+---
+# tasks file for component-verifier
+- name: run http check smoketests
+  block:
+    - name: check http endpoints
+      uri:
+        url: "{{ http_check.serving_protocol }}://{{ http_check.ansible_host }}:{{ http_check.serving_port }}"
+        return_content: no
+        timeout: 5
+        status_code: "{{ http_success_status | default(200) }}"
+      register: http_check_result
+      retries: 3
+
+    - name: output http_check_result result
+      debug:
+        msg: "http_check_result={{ http_check_result }}"
+        verbosity: 2
+
+  when: http_check is defined
+  tags:
+    - "verifier:http"
+
+- name: run tcp port smoketests
+  block:
+  - name: check tcp port
+    wait_for:
+      port: "{{ tcp_check.serving_port }}"
+      host: "{{ tcp_check.ansible_host }}"
+      state: started
+      timeout: 10
+    register: tcp_check_result
+
+  - name: output tcp_check_result result
+    debug:
+      msg: "tcp_check_result={{ tcp_check_result }}"
+      verbosity: 2
+
+  when: tcp_check is defined
+  tags:
+    - "verifier:tcp"

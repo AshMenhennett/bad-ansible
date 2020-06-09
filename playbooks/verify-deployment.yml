@@ -1,0 +1,21 @@
+---
+
+- name: verify frontend deployment
+  hosts: frontends[0]
+  gather_facts: false
+  vars:
+    http_check: "{{ hostvars['frontend1'] }}"
+  roles:
+    - component-verifier
+  tags:
+    - frontend-checks
+
+- name: verify postgres deployment
+  hosts: apps[0]
+  gather_facts: false
+  vars:
+    tcp_check: "{{ hostvars['appdb1'] }}"
+  roles:
+    - component-verifier
+  tags:
+    - db-checks

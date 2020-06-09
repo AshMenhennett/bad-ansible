@@ -1,0 +1,5 @@
+galaxy_info:
+  author: Ashley Menhennett
+  description: Example Tomcat Ansible Role
+  company: DPE
+dependencies: []

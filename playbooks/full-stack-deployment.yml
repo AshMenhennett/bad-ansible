@@ -1,0 +1,43 @@
+---
+
+- name: base server configuration
+  hosts: all
+  become: true
+  vars:
+    base_rpm_uri: "{{ rpm_server }}"
+  roles:
+    - base-server-config
+  tags:
+    - base
+
+- name: deploy haproxy
+  hosts: frontends
+  gather_facts: no
+  become: true
+  vars:
+    haproxy_backend_servers: "{{ app_backend_servers }}"
+    haproxy_backend_port: "{{ app_backend_listen_port }}"
+  roles:
+    - component-haproxy
+  tags:
+    - haproxy
+
+- name: deploy tomcat
+  hosts: apps
+  gather_facts: no
+  become: true
+  vars:
+    tomcat_listen_port: "{{ app_backend_listen_port }}"
+  roles:
+    - component-tomcat
+  tags:
+    - tomcat
+
+- name: deploy postgres
+  hosts: appdbs
+  become: yes
+  gather_facts: yes
+  roles:
+    -  { role: bihealth.postgres_server, postgres_server_initdb_become: yes, postgres_server_user: postgres }
+  tags:
+    - postgres

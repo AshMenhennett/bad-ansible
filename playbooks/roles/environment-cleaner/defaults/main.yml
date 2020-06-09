@@ -1,0 +1,8 @@
+---
+# defaults file for util-cleaner
+three_tier_packages:
+  - httpie
+  - python-pip
+  - haproxy
+  - tomcat
+  - postgresql-server

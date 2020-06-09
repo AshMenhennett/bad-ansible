@@ -1,0 +1,3 @@
+---
+# defaults file for component-verifier
+http_success_status: 200

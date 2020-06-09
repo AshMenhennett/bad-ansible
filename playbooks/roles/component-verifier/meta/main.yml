@@ -1,0 +1,5 @@
+galaxy_info:
+  author: Ashley Menhennett
+  description: Example Smoketest Ansible Role
+  company: DPE
+dependencies: []

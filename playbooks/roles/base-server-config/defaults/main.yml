@@ -1,0 +1,3 @@
+---
+# defaults file for server
+base_rpm_uri: example.com/repos

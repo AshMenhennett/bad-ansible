@@ -1,0 +1,5 @@
+galaxy_info:
+  author: Ashley Menhennett
+  description: Example Base Server Ansible Role
+  company: DPE
+dependencies: []

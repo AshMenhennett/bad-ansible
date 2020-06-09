@@ -1,0 +1,5 @@
+---
+# defaults file for haproxy
+haproxy_backend_port: 8080
+haproxy_serving_port: 80
+haproxy_backend_servers: [app1.example.com, app2.example.com, app3.example.com]

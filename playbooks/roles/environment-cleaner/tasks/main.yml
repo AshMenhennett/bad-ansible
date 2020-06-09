@@ -1,0 +1,29 @@
+---
+# tasks file for util-cleaner
+- name: clean environment
+  block:
+  - name: reverse the enabling of sudo without tty for some ansible commands
+    replace:
+      path: /etc/sudoers
+      regexp: 'Defaults\s*!requiretty'
+      replace: '^Defaults requiretty'
+      backup: yes
+
+  - name: Remove the repo files
+    file:
+      state: absent
+      path: /etc/yum.repos.d/{{ item }}
+    loop:
+      - custom-rhel-7.repo
+
+  - name: Remove base tools and three tier app packages
+    yum:
+      name: "{{ three_tier_packages }}"
+      state: absent
+
+  - name: Remove index.html
+    file:
+      path: /tmp/index.html
+      state: absent
+  tags:
+    - "util:clean"

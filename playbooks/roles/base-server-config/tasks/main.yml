@@ -1,0 +1,13 @@
+---
+# tasks file for server
+- name: repository setup
+  block:
+    - name: template yum repos
+      template:
+        src: "{{ item.src }}"
+        dest: /etc/yum.repos.d/{{ item.path }}
+        mode: 0644
+      with_filetree: templates/repos/{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version }}
+      when: '".repo" in item.path'
+  tags:
+    - "base:configure"

@@ -1,0 +1,4 @@
+---
+app_backend_listen_port: 8080
+app_backend_servers: "{{ groups['apps'] }}"
+rpm_server: http://admin.na.shared.opentlc.com/repos/tower/3.6.0-1

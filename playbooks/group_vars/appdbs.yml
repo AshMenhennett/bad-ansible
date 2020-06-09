@@ -1,0 +1,3 @@
+---
+serving_port: 5432
+serving_protocol: tcp

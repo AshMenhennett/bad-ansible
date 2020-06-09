@@ -1,0 +1,40 @@
+---
+# tasks file for tomcat
+- name: tomcat installation
+  block:
+    - name: install tomcat
+      package:
+        name: tomcat
+        state: latest
+      notify: restart tomcat
+
+    - name: start and enable tomcat
+      service:
+        name: tomcat
+        enabled: yes
+        state: started
+  tags:
+    - "tomcat:install"
+
+- name: tomcat configuration
+  block:
+    - name: ensure tomcat webapp directory
+      file:
+        path: "{{ tomcat_webapp_dir }}"
+        state: directory
+
+    - name: copy templates to tomcat {{tomcat_webapp_dir}}/index.html
+      template:
+        src: index.html.j2
+        dest: "{{tomcat_webapp_dir}}/index.html"
+        mode: 0644
+      notify: restart tomcat
+
+    - name: copy tomcat server conf
+      template:
+        src: server.xml.j2
+        dest: "/usr/share/tomcat/conf/server.xml"
+        mode: 0644
+      notify: restart tomcat
+  tags:
+    - "tomcat:configure"
