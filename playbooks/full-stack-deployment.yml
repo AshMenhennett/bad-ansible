@@ -38,6 +38,6 @@
   become: yes
   gather_facts: yes
   roles:
-    -  { role: bihealth.postgres_server, postgres_server_initdb_become: yes, postgres_server_user: postgres }
+    -  { role: bihealth.postgres_server, postgres_server_initdb_become: yes, postgres_server_user: root }
   tags:
     - postgres
