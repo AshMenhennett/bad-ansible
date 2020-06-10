@@ -1,17 +1,14 @@
 [frontends] 
-frontend1 ansible_host=frontend1."{{ GUID }}".internal
+frontend1 ansible_host=frontend1.ac72.internal
 
 [apps] 
-app1 ansible_host=app1."{{ GUID }}".internal
-app2 ansible_host=app2."{{ GUID }}".internal
+app1 ansible_host=app1.ac72.internal
+app2 ansible_host=app2.ac72.internal
 
 [appdbs] 
-appdb1 ansible_host=appdb1."{{ GUID }}".internal
+appdb1 ansible_host=appdb1.ac72.internal
 
 [internal:children]
 frontends
 apps
 appdbs
-
-[internal:vars]
-GUID="{{ lookup('env', 'GUID') }}"
