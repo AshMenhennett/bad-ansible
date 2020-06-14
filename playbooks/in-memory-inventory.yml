@@ -1,10 +1,10 @@
 ---
 - name: In-Memory inventory playbook
-  hosts: workstation
+  hosts: localhost
   tasks:
     - name: Fetch Instance Info
       os_server_facts:
-        cloud: openstack
+        cloud: devstack
 
     - name: Add host
       add_host:
