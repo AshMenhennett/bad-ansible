@@ -1,5 +1,8 @@
 ---
 
+- name: Import inmemory inventory
+  import_playbook: in-memory-inventory.yml
+
 - name: base server configuration
   hosts: all
   become: true
